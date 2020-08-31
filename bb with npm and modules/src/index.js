@@ -1,6 +1,7 @@
 import { undo } from './Modules/Undo.js';
 import { clearTheFieldForNewGame, createColorsOfBubbles } from './Modules/New game.js';
 import { calculateFromLeft, calculateFromRight, calculateFromTop, calculateFromBottom } from './Modules/Remove bubbles.js';
+import { saveRecord, getRecord } from './Modules/Save record.js';
 
 const allBubbles = document.getElementsByTagName('td'), // зберігаємо всі бульбашки до змінної (168)
       arrayOfColors = ["yellow", "red", "purple", "green", "blue"], // всі можливі кольори для бульбашок
@@ -16,6 +17,8 @@ let totalScore = 0,
     handledElementsOfArray,
     arrayOfBubblesColors = [],
     arrayOfBubblesForUndo;
+
+getRecord(); // зберігаємо найкращий результат в браузері для відображення ігроку
 
 function moveFieldDown() { // рухаємо бульбашки вниз після видалення щоб заповнити порожнечі
     for (let i = numberOfBubblesInColumn -1; i > 0; i--) {
@@ -60,6 +63,7 @@ function createCoordinatesForBubbles(arrayOfCoordinates) {
 };
 
 function newGame() {
+  getRecord();
   totalScore = 0;
   document.getElementById('score').innerHTML = 0;
   clearTheFieldForNewGame(arrayOfCoordinates, numberOfBubblesInRow);
@@ -71,6 +75,8 @@ function newGame() {
 function removeClickedBubbles(e) { //видаляємо бульбашки після кліку і їх обробки в findAllBubblesToRemove()
   let classToRemove = e.classList[1];
   totalScore += Math.round(50 * (0.2 * arrayOfBubblesToHandle.length));
+  saveRecord(totalScore);
+  getRecord();
   for (let i = 0; i < arrayOfBubblesToHandle.length; i++){
     arrayOfBubblesToHandle[i].classList.remove(classToRemove)
   };
