@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "serve": "browser-sync start --server --files 'src/css/*.css, **/*.html, src.js,'",
+    "serve": "browser-sync start --server --files 'src/css/*.css, **/*.html'",
     "start": "run-p serve"
   },
   "author": "Alex Z",
