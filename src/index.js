@@ -1,7 +1,7 @@
 import { undo } from './Modules/Undo.js';
-import { clearTheFieldForNewGame, createColorsOfBubbles } from './Modules/New_game.js';
-import { calculateFromLeft, calculateFromRight, calculateFromTop, calculateFromBottom } from './Modules/Remove_bubbles.js';
-import { saveRecord, getRecord } from './Modules/Save_record.js';
+import { clearTheFieldForNewGame, createColorsOfBubbles } from './Modules/New game.js';
+import { calculateFromLeft, calculateFromRight, calculateFromTop, calculateFromBottom } from './Modules/Remove bubbles.js';
+import { saveRecord, getRecord } from './Modules/Save record.js';
 
 const allBubbles = document.getElementsByTagName('td'), // зберігаємо всі бульбашки до змінної (168)
       arrayOfColors = ["yellow", "red", "purple", "green", "blue"], // всі можливі кольори для бульбашок
@@ -114,7 +114,7 @@ document.addEventListener('click', element => { // опрацьовуємо кл
     if (e.id === 'new game') // при використанні кнопки new game починаємо нову ігру
       newGame();
 
-    if (e.id === 'undo') // при використанні кнопки undo відміняємо останній хід
+    if (e.id === 'undo' && totalScore > 0) // при використанні кнопки undo відміняємо останній хід
       undo(numberOfBubblesInColumn, numberOfBubblesInRow, arrayOfCoordinates, scoreForUndo, arrayOfBubblesForUndo);
 
     if (e.parentNode.parentNode.parentNode.id === 'play field' && e.classList[1]) {
