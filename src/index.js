@@ -1,7 +1,11 @@
+import './css/style.css';
 import { undo } from './Modules/Undo.js';
-import { clearTheFieldForNewGame, createColorsOfBubbles } from './Modules/New game.js';
-import { calculateFromLeft, calculateFromRight, calculateFromTop, calculateFromBottom } from './Modules/Remove bubbles.js';
-import { saveRecord, getRecord } from './Modules/Save record.js';
+import { clearTheFieldForNewGame, createColorsOfBubbles } from './Modules/New_game.js';
+import { calculateFromLeft, calculateFromRight, calculateFromTop, calculateFromBottom } from './Modules/Remove_bubbles.js';
+import { saveRecord, getRecord } from './Modules/Save_record.js';
+import { createHtmlStructure } from './Modules/Create_html_structure.js';
+
+createHtmlStructure(); // створюємо загальну структуру в HTML файлі (теги, id і інше)
 
 const allBubbles = document.getElementsByTagName('td'), // зберігаємо всі бульбашки до змінної (168)
       arrayOfColors = ["yellow", "red", "purple", "green", "blue"], // всі можливі кольори для бульбашок
