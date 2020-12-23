@@ -1,134 +1,98 @@
 import './css/style.css';
 import { undo } from './Modules/Undo.js';
-import { clearTheFieldForNewGame, createColorsOfBubbles } from './Modules/New_game.js';
-import { calculateFromLeft, calculateFromRight, calculateFromTop, calculateFromBottom } from './Modules/Remove_bubbles.js';
+import { createColorsOfBubbles, createCoordinatesForBubbles, newGame} from './Modules/New_game.js';
+import { calculateFromLeft, calculateFromRight, calculateFromTop, calculateFromBottom } from './Modules/Calculations_for_further_bubbles_removing.js';
 import { saveRecord, getRecord } from './Modules/Save_record.js';
 import { createHtmlStructure } from './Modules/Create_html_structure.js';
+import { moveFieldDown, moveFieldSideways } from './Modules/Move_field.js';
+import { numberOfBubblesInRow, numberOfBubblesInColumn} from './Modules/User_sizes_of_game_field.js';
 
 createHtmlStructure(); // створюємо загальну структуру в HTML файлі (теги, id і інше)
 
+
 const allBubbles = document.getElementsByTagName('td'), // зберігаємо всі бульбашки до змінної (168)
       arrayOfColors = ["yellow", "red", "purple", "green", "blue"], // всі можливі кольори для бульбашок
-      arrayOfCoordinates = document.getElementsByTagName('tr'), // зберігаємо в конст всі рядки з бульбашками (14)
-      numberOfBubblesInRow = 12,
-      numberOfBubblesInColumn = 14;
+      arrayOfCoordinates = document.getElementsByTagName('tr'); // зберігаємо в конст всі рядки з бульбашками (14)
 
 let totalScore = 0,
     scoreForUndo = 0,
-    e,
-    currentElement,
+    elementTarget,
+    clickedBubbleElement,
     arrayOfBubblesToHandle,
     handledElementsOfArray,
     arrayOfBubblesColors = [],
     arrayOfBubblesForUndo;
 
-getRecord(); // зберігаємо найкращий результат в браузері для відображення ігроку
+getRecord(); //беремо накращий результат збережений в браузері для відображення ігроку
 
-function moveFieldDown() { // рухаємо бульбашки вниз після видалення щоб заповнити порожнечі
-    for (let i = numberOfBubblesInColumn -1; i > 0; i--) {
-      for (let j = numberOfBubblesInRow -1; j > -1; j--) {
-        if (!arrayOfCoordinates[i].children[j].classList[1] && arrayOfCoordinates[i-1].children[j].classList[1]) {
-          arrayOfCoordinates[i].children[j].classList.add(arrayOfCoordinates[i-1].children[j].classList[1]);
-          arrayOfCoordinates[i-1].children[j].classList.remove(arrayOfCoordinates[i-1].children[j].classList[1]);
-        };
-      };
-    };
-};
+function removeClickedBubbles (elementTarget) { //видаляємо бульбашки після кліку і їх обробки в findAllBubblesToRemove()
 
-function moveFieldSideways() { // рухаємо бульбашки вбік після руху їх вниз
-  let counter = 0;
-    for (let i = numberOfBubblesInRow -1; i > 0; i--) {
-      for (let j = numberOfBubblesInColumn -1; j > -1; j--) {
-        if (!arrayOfCoordinates[j].children[i].classList[1]) {
-          counter++;
-        };
-      };
-      if (counter === 14) {
-         for (let y = i; y < numberOfBubblesInRow -1; y++) {
-           for (let x = 0; x < numberOfBubblesInColumn; x++) {
-            if (!arrayOfCoordinates[x].children[y].classList[1] && arrayOfCoordinates[x].children[y+1].classList[1]) {
-              arrayOfCoordinates[x].children[y].classList.add(arrayOfCoordinates[x].children[y+1].classList[1]);
-              arrayOfCoordinates[x].children[y+1].classList.remove(arrayOfCoordinates[x].children[y+1].classList[1]);
-            };
-          };
-        };
-      };
-      counter = 0;
-   };
-};
-
-function createCoordinatesForBubbles(arrayOfCoordinates) {
-  for (let i = 0; i < arrayOfCoordinates.length; i++) {
-    arrayOfCoordinates[i].classList.add(`${i+1}`) // призначаємо номерні класи для всіх рядків
-    for (let j = 0; j < numberOfBubblesInRow; j++) {
-      arrayOfCoordinates[i].children[j].classList.add(`${j+1}`)
-    };
-  };
-};
-
-function newGame() {
-  getRecord();
-  totalScore = 0;
-  document.getElementById('score').innerHTML = 0;
-  clearTheFieldForNewGame(arrayOfCoordinates, numberOfBubblesInRow);
-  createCoordinatesForBubbles(arrayOfCoordinates);
-  createColorsOfBubbles(allBubbles, arrayOfColors);
-  arrayOfBubblesColors = [];
-};
-
-function removeClickedBubbles(e) { //видаляємо бульбашки після кліку і їх обробки в findAllBubblesToRemove()
-  let classToRemove = e.classList[1];
+  let classToRemove = elementTarget.classList[1];
   totalScore += Math.round(50 * (0.2 * arrayOfBubblesToHandle.length));
-  saveRecord(totalScore);
   getRecord();
+  saveRecord(totalScore);
   for (let i = 0; i < arrayOfBubblesToHandle.length; i++){
     arrayOfBubblesToHandle[i].classList.remove(classToRemove)
   };
 
   document.getElementById('score').innerHTML = totalScore;
-  setTimeout(moveFieldDown, 500);
-  setTimeout(moveFieldSideways, 500);
+  let wrapperFunctionForWork_moveFieldDown_InSetTimeout = () => {
+    moveFieldDown(numberOfBubblesInColumn, numberOfBubblesInRow, arrayOfCoordinates);
+  };
+  setTimeout(wrapperFunctionForWork_moveFieldDown_InSetTimeout, 500);
+
+  let wrapperFunctionForWork_moveFieldSideways_InSetTimeout = () => {
+    moveFieldSideways(numberOfBubblesInRow, numberOfBubblesInColumn, arrayOfCoordinates);
+  };
+  setTimeout(wrapperFunctionForWork_moveFieldSideways_InSetTimeout, 500);
 
 };
 
-function findAllBubblesToRemove(e) {//розраховуємо кількість бульбашок які потрібно видалити
-  currentElement = e;
-  let checker = true;
+function findAllBubblesToRemove (elementTarget) {//розраховуємо кількість бульбашок які потрібно видалити
+  clickedBubbleElement = elementTarget;
+  let checkerIfABubbleMustBeAddedToAnArray = true;
   handledElementsOfArray += 1;
 
-  calculateFromLeft(currentElement, e, arrayOfBubblesToHandle, numberOfBubblesInRow, checker);
-  calculateFromRight(currentElement, e, arrayOfBubblesToHandle, numberOfBubblesInRow, checker);
-  calculateFromTop(currentElement, e, arrayOfBubblesToHandle, numberOfBubblesInColumn, checker);
-  calculateFromBottom(currentElement, e, arrayOfBubblesToHandle, numberOfBubblesInColumn, checker);
+  calculateFromLeft(clickedBubbleElement, elementTarget, arrayOfBubblesToHandle, numberOfBubblesInRow, checkerIfABubbleMustBeAddedToAnArray);
+  calculateFromRight(clickedBubbleElement, elementTarget, arrayOfBubblesToHandle, numberOfBubblesInRow, checkerIfABubbleMustBeAddedToAnArray);
+  calculateFromTop(clickedBubbleElement, elementTarget, arrayOfBubblesToHandle, numberOfBubblesInColumn, checkerIfABubbleMustBeAddedToAnArray);
+  calculateFromBottom(clickedBubbleElement, elementTarget, arrayOfBubblesToHandle, numberOfBubblesInColumn, checkerIfABubbleMustBeAddedToAnArray);
 
     if (handledElementsOfArray < arrayOfBubblesToHandle.length) {
         findAllBubblesToRemove(arrayOfBubblesToHandle[handledElementsOfArray]);
     };
 
-  removeClickedBubbles(e);
+  removeClickedBubbles(elementTarget, totalScore, arrayOfBubblesToHandle, numberOfBubblesInColumn, numberOfBubblesInRow, arrayOfCoordinates);
 
 };
 
 createCoordinatesForBubbles(arrayOfCoordinates, numberOfBubblesInRow);
 createColorsOfBubbles(allBubbles, arrayOfColors);
 
-document.addEventListener('click', element => { // опрацьовуємо кліки по бульбашкам
-  e = element.target;
 
-    if (e.id === 'new game') // при використанні кнопки new game починаємо нову ігру
-      newGame();
 
-    if (e.id === 'undo' && totalScore > 0) // при використанні кнопки undo відміняємо останній хід
-      undo(numberOfBubblesInColumn, numberOfBubblesInRow, arrayOfCoordinates, scoreForUndo, arrayOfBubblesForUndo);
+document.addEventListener('click', element => { // опрацьовуємо кліки по ігровому полю
+  elementTarget = element.target;
+    if (elementTarget.id === 'new game') {// при використанні кнопки new game починаємо нову ігру
+      totalScore = 0;
+      scoreForUndo = 0;
+      newGame(arrayOfCoordinates, numberOfBubblesInRow, allBubbles, arrayOfColors, arrayOfBubblesColors);
+    };
 
-    if (e.parentNode.parentNode.parentNode.id === 'play field' && e.classList[1]) {
-      if ((e.nextSibling.classList && e.classList[1] === e.nextSibling.classList[1]) ||
-      (e.previousSibling.classList && e.classList[1] === e.previousSibling.classList[1]) ||
-      (!e.parentNode.classList.contains('1') && e.classList[1] === e.parentNode.previousSibling.previousSibling.children[e.classList[0] - 1].classList[1]) ||
-      (!e.parentNode.classList.contains('14') && e.classList[1] === e.parentNode.nextSibling.nextSibling.children[e.classList[0] - 1].classList[1])
+    if (elementTarget.id === 'undo' && totalScore > 0) {// при використанні кнопки undo відміняємо останній хід
+      undo(numberOfBubblesInColumn, numberOfBubblesInRow, arrayOfCoordinates, arrayOfBubblesForUndo, scoreForUndo);
+      totalScore = scoreForUndo;
+    };
+
+    if (elementTarget.parentNode.parentNode.parentNode.id === 'play field' && elementTarget.classList[1]) {
+      if ((elementTarget.nextSibling.classList && elementTarget.classList[1] === elementTarget.nextSibling.classList[1]) ||
+      (elementTarget.previousSibling.classList && elementTarget.classList[1] === elementTarget.previousSibling.classList[1]) ||
+      (!elementTarget.parentNode.classList.contains('1') && elementTarget.classList[1] === elementTarget.parentNode.previousSibling.previousSibling.children[elementTarget.classList[0] - 1].classList[1]) ||
+      (!elementTarget.parentNode.classList.contains(numberOfBubblesInColumn.toString()) && elementTarget.classList[1] === elementTarget.parentNode.nextSibling.nextSibling.children[elementTarget.classList[0] - 1].classList[1])
       ) {
           arrayOfBubblesForUndo = [];
           scoreForUndo = totalScore;
+          document.getElementById('undo').style.color = "white";
           for (let i = 0; i < numberOfBubblesInColumn; i++) { // зберігаємо інфу для undo кнопки
             let temporaryArray = [];
             for (let j = 0; j < numberOfBubblesInRow; j++) {
@@ -140,8 +104,8 @@ document.addEventListener('click', element => { // опрацьовуємо кл
 
           handledElementsOfArray = 0;
           arrayOfBubblesToHandle = [];
-          arrayOfBubblesToHandle.push(e);
-          findAllBubblesToRemove(e, currentElement, numberOfBubblesInRow, numberOfBubblesInColumn, handledElementsOfArray, arrayOfBubblesToHandle);
+          arrayOfBubblesToHandle.push(elementTarget);
+          findAllBubblesToRemove(elementTarget, clickedBubbleElement, handledElementsOfArray, arrayOfBubblesToHandle, numberOfBubblesInRow, numberOfBubblesInColumn, totalScore);
       };
    };
 });

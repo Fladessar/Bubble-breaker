@@ -56,7 +56,9 @@ module.exports = {
         path.join(process.cwd(), '1/**/*')
       ]
     }),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'BB',
+    }),
   ]
 
 }
