@@ -38,3 +38,9 @@ table {
 .yellow {
   background-color: #f9be26
 }
+
+input {
+  background-color:grey;
+  color:white;
+  font-size:20px;
+}

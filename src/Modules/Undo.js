@@ -1,16 +1,13 @@
-export let undo = (numberOfBubblesInColumn, numberOfBubblesInRow, arrayOfCoordinates, scoreForUndo, arrayOfBubblesForUndo) => {
+export let undo = (numberOfBubblesInColumn, numberOfBubblesInRow, arrayOfCoordinates, arrayOfBubblesForUndo, scoreForUndo) => {
   for (let i = 0; i < numberOfBubblesInColumn; i++) { // видаляємо поточні класи з кольорами
     for (let j = 0; j < numberOfBubblesInRow; j++) {
-      arrayOfCoordinates[i].children[j].classList.remove(arrayOfCoordinates[i].children[j].classList[1]);
-    };
-  };
-
-  for (let i = 0; i < numberOfBubblesInColumn; i++) { // повертаємо збережені класи з кольорами
-    for (let j = 0; j < numberOfBubblesInRow; j++) {
+      let classlist = arrayOfCoordinates[i].children[j].classList;
+      classlist.remove(classlist[1]);
       if (arrayOfBubblesForUndo[i][j]) {
-        arrayOfCoordinates[i].children[j].classList.add(arrayOfBubblesForUndo[i][j]);
+        classlist.add(arrayOfBubblesForUndo[i][j]);
       };
     };
   };
   document.getElementById('score').innerHTML = scoreForUndo;
+  document.getElementById('undo').style.color = "grey";
 };
