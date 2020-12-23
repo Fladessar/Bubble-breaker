@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import './css/style.css';
 import { undo } from './modules/Undo.js';
 import { createColorsOfBubbles, createCoordinatesForBubbles, newGame} from './modules/New_game.js';
@@ -8,6 +9,12 @@ import { moveFieldDown, moveFieldSideways } from './modules/Move_field.js';
 import { numberOfBubblesInRow, numberOfBubblesInColumn} from './modules/User_sizes_of_game_field.js';
 
 createHtmlStructure(); // створюємо загальну структуру в HTML файлі (теги, id і інше)
+=======
+import { undo } from './Modules/Undo.js';
+import { clearTheFieldForNewGame, createColorsOfBubbles } from './Modules/New game.js';
+import { calculateFromLeft, calculateFromRight, calculateFromTop, calculateFromBottom } from './Modules/Remove bubbles.js';
+import { saveRecord, getRecord } from './Modules/Save record.js';
+>>>>>>> parent of f1c9904... +webpack
 
 
 const allBubbles = document.getElementsByTagName('td'), // зберігаємо всі бульбашки до змінної (168)
