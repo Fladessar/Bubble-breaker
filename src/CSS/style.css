@@ -19,6 +19,10 @@ table {
   box-shadow: 0 0 2px black;
 }
 
+.transparent {
+  background-color:
+}
+
 .blue {
   background-color: #00ccfe
 }
@@ -37,6 +41,10 @@ table {
 
 .yellow {
   background-color: #f9be26
+}
+
+.white {
+  color: white !important;
 }
 
 input {

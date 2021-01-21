@@ -1,4 +1,4 @@
-import { numberOfBubblesInRow, numberOfBubblesInColumn} from './User_sizes_of_game_field.js';
+import { numberOfBubblesInRow, numberOfBubblesInColumn} from '../model/user-sizes-of-game-field.js';
 let cellsForPlayField, aRowForPlayField, rowsAndCellsForPlayField;
 
 cellsForPlayField = '<td></td>';
