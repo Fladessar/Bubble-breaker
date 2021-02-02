@@ -1,26 +1,23 @@
-import { numberOfBubblesInRow, numberOfBubblesInColumn} from '../model/user-sizes-of-game-field.js';
-let cellsForPlayField, aRowForPlayField, rowsAndCellsForPlayField;
+export const createHtmlStructure = (numberOfBubblesInRow, numberOfBubblesInColumn) => { //створюємо структуру головної сторінки і додаємо у неї ігрове поле
 
-cellsForPlayField = '<td></td>';
-aRowForPlayField = '';
-rowsAndCellsForPlayField = '';
+  let cellsForPlayField = '<td></td>',
+  aRowForPlayField = '',
+  rowsAndCellsForPlayField = '';
 
-for (let j = 1; j < numberOfBubblesInRow; j++) { //створюємо комірки відповідно до numberOfBubblesInRow змінної
-      cellsForPlayField += '<td></td>';
-    };
+  for (let j = 1; j < numberOfBubblesInRow; j++) { //створюємо комірки відповідно до numberOfBubblesInRow змінної
+    cellsForPlayField += '<td></td>';
+  };
 
-aRowForPlayField = '<tr>\n' + cellsForPlayField + '\n</tr>\n';
-rowsAndCellsForPlayField = aRowForPlayField;
+  aRowForPlayField = '<tr>\n' + cellsForPlayField + '\n</tr>\n';
+  rowsAndCellsForPlayField = aRowForPlayField;
 
-for (let j = 1; j < numberOfBubblesInColumn; j++) { //створюємо рядки відповідно до numberOfBubblesInColumn змінної
-      rowsAndCellsForPlayField += aRowForPlayField;
-    };
-
-export let createHtmlStructure = () => { //створюємо структуру головної сторінки і додаємо у неї ігрове поле
+  for (let j = 1; j < numberOfBubblesInColumn; j++) { //створюємо рядки відповідно до numberOfBubblesInColumn змінної
+    rowsAndCellsForPlayField += aRowForPlayField;
+  };
 
   const div = document.createElement('div');
   div.innerHTML = `<div height="560" width="480" align="center" style="padding-top:10px">
-                    <span class="shadows" style="display: inline-block; padding:20px; font-size:18px; margin-bottom:20px; border-radius: 10px; color:white; background-color: #333333;">
+                    <span id="score_box" class="shadows" style="display: inline-block; padding:20px; font-size:18px; margin-bottom:20px; border-radius: 10px; color:white; background-color: #333333;">
                       <div style="padding-bottom:5px; color:grey">
                         <span>Best result: </span><span id="record">0</span>
                       </div>
@@ -37,4 +34,4 @@ export let createHtmlStructure = () => { //створюємо структуру
                       </div>
                   </div>`;
   document.querySelector('body').appendChild(div);
-}
+};

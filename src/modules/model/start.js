@@ -1,23 +1,25 @@
-import '../../css/style.css';
+import './css/style.css';
 import { numberOfBubblesInRow, numberOfBubblesInColumn} from './user-sizes-of-game-field.js';
 import { createHtmlStructure } from '../view/create-html-structure.js';
 import { drawCurrentBubblesPlacement } from '../view/draw-game-field.js';
-import { eventListener } from '../controller/mouse-clicked.js';
-import { playFieldDataArrayForUndo, previousScore } from './undo.js';
-import { changeColorOfDomElement } from '../view/change-color-of-undo-button.js';
+import { eventListener } from '../view/mouse-clicked.js';
+import { playFieldDataArrayForUndo, previousScore } from '../controller/undo.js';
+import { setUndoButtonEnabled } from '../view/change-color-of-undo-button.js';
 import { totalScore, totalScoreHandling } from './total-score-handling.js';
 import { drawBestResult } from '../view/draw-best-result.js';
-import { getBestResult } from './best-result-handling.js';
+import { getBestResult } from '../controller/best-result-handling.js';
 
-export { allBubblesRows, playFieldDataArray};
+export { allBubblesRows, playFieldDataArray, start };
 
 const allBubblesRows = document.getElementsByTagName('tr');
 let playFieldDataArray = [];
 
-createHtmlStructure(); // створюємо загальну структуру в HTML файлі (теги, id і інше)
+const start = () => {
+createHtmlStructure(numberOfBubblesInRow, numberOfBubblesInColumn); // створюємо загальну структуру в HTML файлі (теги, id і інше)
 createNewBubbles(); // створюємо і відмальовуємо масив бульбашок
 eventListener(); // чекаємо на дії користувача
 drawBestResult(getBestResult()); // відмальовуємо кращий результат (рекорд очок)
+};
 
 export function createNewBubbles() { // створюємо масив бульбашок різного кольору
   for (let i = 0; i < numberOfBubblesInColumn; i++) {
@@ -29,7 +31,7 @@ export function createNewBubbles() { // створюємо масив бульб
   drawCurrentBubblesPlacement(); // відмальовуємо масив бульбашок
 };
 
-export let undo = () => {
+export const undo = () => {
   if (totalScore > 0 ){
     playFieldDataArray = [];
     for (let i = 0; i < numberOfBubblesInColumn; i++) {
@@ -38,7 +40,7 @@ export let undo = () => {
         playFieldDataArray[i].push(playFieldDataArrayForUndo[i][j]);
       };
     };
-    changeColorOfDomElement("gray");
+    setUndoButtonEnabled("gray");
     totalScoreHandling(previousScore);
     drawCurrentBubblesPlacement();
   };

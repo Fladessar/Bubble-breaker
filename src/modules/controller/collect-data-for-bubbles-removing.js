@@ -1,5 +1,5 @@
-import { playFieldDataArray } from './index.js';
-import { numberOfBubblesInRow, numberOfBubblesInColumn} from './user-sizes-of-game-field.js';
+import { playFieldDataArray } from '../model/start.js';
+import { numberOfBubblesInRow, numberOfBubblesInColumn} from '../model/user-sizes-of-game-field.js';
 import { arrayOfColors } from '../view/draw-game-field.js';
 import { bubbleRemover } from './bubble-removing.js';
 import { saveDataForUndo } from './undo.js';
@@ -48,7 +48,7 @@ function calculateIfThereAreMoreBubblesToRemove(hP, vP, biggerNumber) { //пер
     };
 };
 
-export let calculationBubblesToRemove = (horizontalPositionOfTDTag, verticalPositionOfTDTag, biggerNumber) => {
+export const calculationBubblesToRemove = (horizontalPositionOfTDTag, verticalPositionOfTDTag, biggerNumber) => {
   let hP = horizontalPositionOfTDTag,
       vP = verticalPositionOfTDTag;
 

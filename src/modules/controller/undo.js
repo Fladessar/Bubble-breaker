@@ -1,12 +1,12 @@
-import { playFieldDataArray, undo } from './index.js';
+import { playFieldDataArray, undo } from '../model/start.js';
 import { drawCurrentBubblesPlacement } from '../view/draw-game-field.js';
-import { numberOfBubblesInRow, numberOfBubblesInColumn} from './user-sizes-of-game-field.js';
-import { changeColorOfDomElement } from '../view/change-color-of-undo-button.js';
-import { totalScore } from './total-score-handling.js';
+import { numberOfBubblesInRow, numberOfBubblesInColumn} from '../model/user-sizes-of-game-field.js';
+import { setUndoButtonEnabled } from '../view/change-color-of-undo-button.js';
+import { totalScore } from '../model/total-score-handling.js';
 
 export let playFieldDataArrayForUndo, previousScore;
 
-export let saveDataForUndo = () => {
+export const saveDataForUndo = () => {
   playFieldDataArrayForUndo = [];
   for (let i = 0; i < numberOfBubblesInColumn; i++) {
     playFieldDataArrayForUndo[i] = [];
@@ -15,5 +15,5 @@ export let saveDataForUndo = () => {
     };
   };
   previousScore = totalScore;
-  changeColorOfDomElement("white");
+  setUndoButtonEnabled("white");
 };

@@ -1,7 +1,7 @@
 import { numberOfBubblesInColumn, numberOfBubblesInRow } from '../model/user-sizes-of-game-field.js';
-import { playFieldDataArray } from '../model/index.js';
+import { playFieldDataArray } from '../model/start.js';
 
-export let movePlayFieldDown = () => {
+export const movePlayFieldDown = () => {
   for (let a = 0; a < numberOfBubblesInRow; a++) { //рухаємо бульбашки вниз заповнюючи порожнини після видалення
     for (let i = numberOfBubblesInColumn -1; i > 0; i--) {
       for (let j = numberOfBubblesInRow -1; j >= 0; j--) {
@@ -30,6 +30,6 @@ export let movePlayFieldDown = () => {
         };
       };
     };
-  }
+  };
 
 };

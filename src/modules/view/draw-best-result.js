@@ -1,3 +1,3 @@
-export let drawBestResult = (record) => {
+export const drawBestResult = (record) => {
   document.getElementById('record').innerHTML = record;
 }

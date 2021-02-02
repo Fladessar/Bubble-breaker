@@ -1,3 +1,3 @@
-export let drawScore = (currentScore) => {
+export const drawScore = (currentScore) => {
   document.getElementById('score').innerHTML = currentScore;
 };

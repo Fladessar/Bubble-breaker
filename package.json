@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server --files 'src/css/*.css, **/*.html'",
     "build": "webpack"
   },
   "author": "Alex Z",
