@@ -1,4 +1,4 @@
-// import '../../css/style.css';
+import '../../css/style.css';
 import { numberColumns, numberRows} from './user-sizes-of-game-field.js';
 import { createHtmlStructure } from '../view/create-html-structure.js';
 import { drawCurrentBubblesPlacement } from '../view/draw-game-field.js';
