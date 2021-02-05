@@ -1,4 +1,8 @@
-const numberOfBubblesInRow = 12,
-      numberOfBubblesInColumn = 13;
+const numberColumns = 12,
+      numberRows = 13;
 
-export { numberOfBubblesInColumn, numberOfBubblesInRow };
+export { numberColumns, numberRows };
+
+
+// numberOfBubblesInColumn = numberRows;
+// numberOfBubblesInRow = numberColumns;

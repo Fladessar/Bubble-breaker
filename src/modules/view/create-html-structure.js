@@ -1,17 +1,17 @@
-export const createHtmlStructure = (numberOfBubblesInRow, numberOfBubblesInColumn) => { //створюємо структуру головної сторінки і додаємо у неї ігрове поле
+export const createHtmlStructure = (numberColumns, numberRows) => { //створюємо структуру головної сторінки і додаємо у неї ігрове поле
 
   let cellsForPlayField = '<td></td>',
   aRowForPlayField = '',
   rowsAndCellsForPlayField = '';
 
-  for (let j = 1; j < numberOfBubblesInRow; j++) { //створюємо комірки відповідно до numberOfBubblesInRow змінної
+  for (let j = 1; j < numberColumns; j++) { //створюємо комірки відповідно до numberColumns змінної
     cellsForPlayField += '<td></td>';
   };
 
   aRowForPlayField = '<tr>\n' + cellsForPlayField + '\n</tr>\n';
   rowsAndCellsForPlayField = aRowForPlayField;
 
-  for (let j = 1; j < numberOfBubblesInColumn; j++) { //створюємо рядки відповідно до numberOfBubblesInColumn змінної
+  for (let j = 1; j < numberRows; j++) { //створюємо рядки відповідно до numberRows змінної
     rowsAndCellsForPlayField += aRowForPlayField;
   };
 

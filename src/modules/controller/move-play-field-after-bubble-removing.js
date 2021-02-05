@@ -1,10 +1,10 @@
-import { numberOfBubblesInColumn, numberOfBubblesInRow } from '../model/user-sizes-of-game-field.js';
+import { numberRows, numberColumns } from '../model/user-sizes-of-game-field.js';
 import { playFieldDataArray } from '../model/start.js';
 
 export const movePlayFieldDown = () => {
-  for (let a = 0; a < numberOfBubblesInRow; a++) { //рухаємо бульбашки вниз заповнюючи порожнини після видалення
-    for (let i = numberOfBubblesInColumn -1; i > 0; i--) {
-      for (let j = numberOfBubblesInRow -1; j >= 0; j--) {
+  for (let a = 0; a < numberColumns; a++) { //рухаємо бульбашки вниз заповнюючи порожнини після видалення
+    for (let i = numberRows -1; i > 0; i--) {
+      for (let j = numberColumns -1; j >= 0; j--) {
         if (playFieldDataArray[i][j] === 0) {
           playFieldDataArray[i][j] = playFieldDataArray[i-1][j];
           playFieldDataArray[i-1][j] = 0;
@@ -13,23 +13,19 @@ export const movePlayFieldDown = () => {
     };
   };
 
-  let numberOfEmptyColumns = 0;
+  // console.log("ale");
 
-  for (let j = 0; j < numberOfBubblesInRow; j++) { // розраховуємо чи є пусті рядки для руху елементів в бік
-    if ((playFieldDataArray[numberOfBubblesInColumn - 1][j] !== 0) && (playFieldDataArray[numberOfBubblesInColumn - 1][j+1] === 0)) numberOfEmptyColumns++;
-  };
-
-  if (numberOfEmptyColumns > 0) { //якщо є пусті стовбці то рухаэмо масив в бік
-    for (let a = numberOfEmptyColumns; a > 0; a--) {
-      for (let i = numberOfBubblesInColumn -1; i >= 0; i--) {
-        for (let j = numberOfBubblesInRow -1; j >= 0; j--) {
-          if (playFieldDataArray[i][j] === 0) {
-            playFieldDataArray[i][j] = playFieldDataArray[i][j-1];
-            playFieldDataArray[i][j-1] = 0;
-          };
+    for (let a = numberColumns-1; a >= 0; a--) { //якщо є пусті стовбці то рухаэмо масив в бік
+      if (playFieldDataArray[numberRows - 1][a] === 0) {
+        for (let i = numberRows -1; i >= 0 ; i--) {
+          for (let j = a; j > 0; j--) {
+            if (playFieldDataArray[i][j] === 0) {
+              playFieldDataArray[i][j] = playFieldDataArray[i][j-1];
+              playFieldDataArray[i][j-1] = 0;
+            };
+         };
         };
       };
     };
-  };
 
 };

@@ -1,6 +1,6 @@
 import { createNewBubbles, undo } from '../model/start.js';
 import { calculationBubblesToRemove } from '../controller/collect-data-for-bubbles-removing.js';
-import { numberOfBubblesInColumn, numberOfBubblesInRow } from '../model/user-sizes-of-game-field.js';
+import { numberRows, numberColumns } from '../model/user-sizes-of-game-field.js';
 import { totalScoreHandling } from '../model/total-score-handling.js';
 import { setUndoButtonEnabled } from './change-color-of-undo-button.js';
 import { getBestResult } from '../controller/best-result-handling.js';
@@ -59,9 +59,9 @@ document.getElementById('play field').addEventListener('click', (element) => {//
         horizontalPositionOfTDTag = 0,
         biggerNumber;
 
-    if (numberOfBubblesInColumn > numberOfBubblesInRow) {
-      biggerNumber = numberOfBubblesInColumn;
-    } else { biggerNumber = numberOfBubblesInRow; }
+    if (numberRows > numberColumns) {
+      biggerNumber = numberRows;
+    } else { biggerNumber = numberColumns; }
 
     for (let i = 0; i < biggerNumber; i++) {
       if (et.nextSibling.tagName === "TD") {
@@ -74,7 +74,7 @@ document.getElementById('play field').addEventListener('click', (element) => {//
         et2 = et2.nextSibling.nextSibling;
       };
     };
-    calculationBubblesToRemove((numberOfBubblesInRow - horizontalPositionOfTDTag - 1), (numberOfBubblesInColumn - verticalPositionOfTDTag - 1), biggerNumber);
+    calculationBubblesToRemove((numberColumns - horizontalPositionOfTDTag - 1), (numberRows - verticalPositionOfTDTag - 1), biggerNumber);
   };
 });
 

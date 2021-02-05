@@ -1,5 +1,5 @@
-import '../../css/style.css';
-import { numberOfBubblesInRow, numberOfBubblesInColumn} from './user-sizes-of-game-field.js';
+// import '../../css/style.css';
+import { numberColumns, numberRows} from './user-sizes-of-game-field.js';
 import { createHtmlStructure } from '../view/create-html-structure.js';
 import { drawCurrentBubblesPlacement } from '../view/draw-game-field.js';
 import { eventListener } from '../view/mouse-clicked.js';
@@ -15,16 +15,16 @@ const allBubblesRows = document.getElementsByTagName('tr');
 let playFieldDataArray = [];
 
 const start = () => {
-createHtmlStructure(numberOfBubblesInRow, numberOfBubblesInColumn); // створюємо загальну структуру в HTML файлі (теги, id і інше)
+createHtmlStructure(numberColumns, numberRows); // створюємо загальну структуру в HTML файлі (теги, id і інше)
 createNewBubbles(); // створюємо і відмальовуємо масив бульбашок
 eventListener(); // чекаємо на дії користувача
 drawBestResult(getBestResult()); // відмальовуємо кращий результат (рекорд очок)
 };
 
 export function createNewBubbles() { // створюємо масив бульбашок різного кольору
-  for (let i = 0; i < numberOfBubblesInColumn; i++) {
+  for (let i = 0; i < numberRows; i++) {
     playFieldDataArray[i] = [];
-    for (let j = 0; j < numberOfBubblesInRow; j++) {
+    for (let j = 0; j < numberColumns; j++) {
       playFieldDataArray[i][j] = Math.floor(Math.random()*5) + 1;
     };
   };
@@ -34,9 +34,9 @@ export function createNewBubbles() { // створюємо масив бульб
 export const undo = () => {
   if (totalScore > 0 ){
     playFieldDataArray = [];
-    for (let i = 0; i < numberOfBubblesInColumn; i++) {
+    for (let i = 0; i < numberRows; i++) {
       playFieldDataArray[i] = [];
-      for (let j = 0; j < numberOfBubblesInRow; j++) {
+      for (let j = 0; j < numberColumns; j++) {
         playFieldDataArray[i].push(playFieldDataArrayForUndo[i][j]);
       };
     };
