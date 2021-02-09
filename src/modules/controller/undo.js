@@ -1,5 +1,4 @@
 import { playFieldDataArray, undo } from '../model/start.js';
-import { drawCurrentBubblesPlacement } from '../view/draw-game-field.js';
 import { numberColumns, numberRows} from '../model/user-sizes-of-game-field.js';
 import { setUndoButtonEnabled } from '../view/change-color-of-undo-button.js';
 import { totalScore } from '../model/total-score-handling.js';

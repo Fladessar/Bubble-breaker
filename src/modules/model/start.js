@@ -28,7 +28,7 @@ export function createNewBubbles() { // створюємо масив бульб
       playFieldDataArray[i][j] = Math.floor(Math.random()*5) + 1;
     };
   };
-  drawCurrentBubblesPlacement(); // відмальовуємо масив бульбашок
+  drawCurrentBubblesPlacement(allBubblesRows, playFieldDataArray); // відмальовуємо масив бульбашок
 };
 
 export const undo = () => {
@@ -42,6 +42,6 @@ export const undo = () => {
     };
     setUndoButtonEnabled("gray");
     totalScoreHandling(previousScore);
-    drawCurrentBubblesPlacement();
+    drawCurrentBubblesPlacement(allBubblesRows, playFieldDataArray);
   };
 };

@@ -14,16 +14,17 @@ export const movePlayFieldDown = () => {
   };
 
   // console.log("ale");
-
-    for (let a = numberColumns-1; a >= 0; a--) { //якщо є пусті стовбці то рухаэмо масив в бік
-      if (playFieldDataArray[numberRows - 1][a] === 0) {
-        for (let i = numberRows -1; i >= 0 ; i--) {
-          for (let j = a; j > 0; j--) {
-            if (playFieldDataArray[i][j] === 0) {
-              playFieldDataArray[i][j] = playFieldDataArray[i][j-1];
-              playFieldDataArray[i][j-1] = 0;
-            };
-         };
+    for (let b = numberColumns-1; b >= 0; b--) { //якщо є пусті стовбці то рухаэмо масив в бік
+      for (let a = numberColumns-1; a >= 0; a--) { //якщо є пусті стовбці то рухаэмо масив в бік
+        if (playFieldDataArray[numberRows - 1][a] === 0) {
+          for (let i = numberRows -1; i >= 0 ; i--) {
+            for (let j = a; j > 0; j--) {
+              if (playFieldDataArray[i][j] === 0) {
+                playFieldDataArray[i][j] = playFieldDataArray[i][j-1];
+                playFieldDataArray[i][j-1] = 0;
+              };
+           };
+          };
         };
       };
     };
