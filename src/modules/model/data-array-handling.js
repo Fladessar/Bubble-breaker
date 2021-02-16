@@ -1,25 +1,14 @@
-import '../../css/style.css';
+// import '../../css/style.css';
 import { numberColumns, numberRows} from './user-sizes-of-game-field.js';
-import { createHtmlStructure } from '../view/create-html-structure.js';
+import { allBubblesRows } from '../view/create-html-structure.js';
 import { drawCurrentBubblesPlacement } from '../view/draw-game-field.js';
-import { eventListener } from '../view/mouse-clicked.js';
 import { playFieldDataArrayForUndo, previousScore } from '../controller/undo.js';
 import { setUndoButtonEnabled } from '../view/change-color-of-undo-button.js';
-import { totalScore, totalScoreHandling } from './total-score-handling.js';
-import { drawBestResult } from '../view/draw-best-result.js';
-import { getBestResult } from '../controller/best-result-handling.js';
+import { totalScore, handlingTotalScore } from './total-score-handling.js';
 
-export { allBubblesRows, playFieldDataArray, start };
+export { playFieldDataArray };
 
-const allBubblesRows = document.getElementsByTagName('tr');
 let playFieldDataArray = [];
-
-const start = () => {
-createHtmlStructure(numberColumns, numberRows); // створюємо загальну структуру в HTML файлі (теги, id і інше)
-createNewBubbles(); // створюємо і відмальовуємо масив бульбашок
-eventListener(); // чекаємо на дії користувача
-drawBestResult(getBestResult()); // відмальовуємо кращий результат (рекорд очок)
-};
 
 export function createNewBubbles() { // створюємо масив бульбашок різного кольору
   for (let i = 0; i < numberRows; i++) {
@@ -40,8 +29,9 @@ export const undo = () => {
         playFieldDataArray[i].push(playFieldDataArrayForUndo[i][j]);
       };
     };
-    setUndoButtonEnabled("gray");
-    totalScoreHandling(previousScore);
+
+    setUndoButtonEnabled(false);
+    handlingTotalScore(previousScore);
     drawCurrentBubblesPlacement(allBubblesRows, playFieldDataArray);
   };
 };

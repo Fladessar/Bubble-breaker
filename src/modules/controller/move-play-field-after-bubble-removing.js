@@ -1,5 +1,5 @@
 import { numberRows, numberColumns } from '../model/user-sizes-of-game-field.js';
-import { playFieldDataArray } from '../model/start.js';
+import { playFieldDataArray } from '../model/data-array-handling.js';
 
 export const movePlayFieldDown = () => {
   for (let a = 0; a < numberColumns; a++) { //рухаємо бульбашки вниз заповнюючи порожнини після видалення
@@ -13,7 +13,6 @@ export const movePlayFieldDown = () => {
     };
   };
 
-  // console.log("ale");
     for (let b = numberColumns-1; b >= 0; b--) { //якщо є пусті стовбці то рухаэмо масив в бік
       for (let a = numberColumns-1; a >= 0; a--) { //якщо є пусті стовбці то рухаэмо масив в бік
         if (playFieldDataArray[numberRows - 1][a] === 0) {

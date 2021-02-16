@@ -1,8 +1,9 @@
 import { drawBestResult } from '../view/draw-best-result.js';
+import { savingRecord } from '../model/total-score-handling.js';
 
 export const saveBestResult = (totalScore) => {
   if (getBestResult() < totalScore) {
-    localStorage.setItem('record', totalScore);
+    savingRecord(totalScore);
     drawBestResult(totalScore);
   };
 };

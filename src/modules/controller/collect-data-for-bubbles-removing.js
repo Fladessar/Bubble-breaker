@@ -1,6 +1,5 @@
-import { playFieldDataArray } from '../model/start.js';
+import { playFieldDataArray } from '../model/data-array-handling.js';
 import { numberColumns, numberRows} from '../model/user-sizes-of-game-field.js';
-import { arrayOfColors } from '../view/draw-game-field.js';
 import { bubbleRemover } from './bubble-removing.js';
 import { saveDataForUndo } from './undo.js';
 

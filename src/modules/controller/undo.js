@@ -1,4 +1,4 @@
-import { playFieldDataArray, undo } from '../model/start.js';
+import { playFieldDataArray } from '../model/data-array-handling.js';
 import { numberColumns, numberRows} from '../model/user-sizes-of-game-field.js';
 import { setUndoButtonEnabled } from '../view/change-color-of-undo-button.js';
 import { totalScore } from '../model/total-score-handling.js';
@@ -14,5 +14,5 @@ export const saveDataForUndo = () => {
     };
   };
   previousScore = totalScore;
-  setUndoButtonEnabled("white");
+  setUndoButtonEnabled(true);
 };

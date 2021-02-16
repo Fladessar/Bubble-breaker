@@ -1,7 +1,8 @@
 import { drawCurrentBubblesPlacement } from '../view/draw-game-field.js';
 import { movePlayFieldDown } from './move-play-field-after-bubble-removing.js';
-import { totalScoreHandling } from '../model/total-score-handling.js';
-import { allBubblesRows, playFieldDataArray } from '../model/start.js';
+import { handlingTotalScore } from '../model/total-score-handling.js';
+import { playFieldDataArray } from '../model/data-array-handling.js';
+import { allBubblesRows } from '../view/create-html-structure.js';
 
 export const bubbleRemover = (coordinatesOfBubblesForRemovingX, coordinatesOfBubblesForRemovingY, playFieldDataArray) => {
   for (let i = 0; i < coordinatesOfBubblesForRemovingX.length; i++) {
@@ -14,6 +15,6 @@ export const bubbleRemover = (coordinatesOfBubblesForRemovingX, coordinatesOfBub
 
   drawCurrentBubblesPlacement(allBubblesRows, playFieldDataArray);
   movePlayFieldDown();
-  totalScoreHandling();
+  handlingTotalScore();
   setTimeout(wrapperFordrawCurrentBubblesPlacement, 200);
 };

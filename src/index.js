@@ -1,3 +1,3 @@
-import { start } from './modules/model/start.js';
+import { start } from './modules/controller/start.js';
 
 window.onload = start();
