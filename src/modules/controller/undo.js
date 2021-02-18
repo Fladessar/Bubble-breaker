@@ -1,7 +1,7 @@
-import { playFieldDataArray } from '../model/data-array-handling.js';
+import { getFieldDataArray } from '../model/data-array.js';
 import { numberColumns, numberRows} from '../model/user-sizes-of-game-field.js';
 import { setUndoButtonEnabled } from '../view/change-color-of-undo-button.js';
-import { totalScore } from '../model/total-score-handling.js';
+import { gettingTotalScore} from '../model/total-score.js';
 
 export let playFieldDataArrayForUndo, previousScore;
 
@@ -10,9 +10,9 @@ export const saveDataForUndo = () => {
   for (let i = 0; i < numberRows; i++) {
     playFieldDataArrayForUndo[i] = [];
     for (let j = 0; j < numberColumns; j++) {
-      playFieldDataArrayForUndo[i].push(playFieldDataArray[i][j]);
+      playFieldDataArrayForUndo[i].push(getFieldDataArray()[i][j]);
     };
   };
-  previousScore = totalScore;
+  previousScore = gettingTotalScore();
   setUndoButtonEnabled(true);
 };

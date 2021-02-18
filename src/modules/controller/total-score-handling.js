@@ -1,21 +1,21 @@
 import { coordinatesOfBubblesForRemovingX } from '../controller/collect-data-for-bubbles-removing.js';
 import { drawScore } from '../view/draw-score.js';
 import { saveBestResult } from '../controller/best-result-handling.js';
-
-export let totalScore = 0;
+import { savingTotalScore, gettingTotalScore} from '../model/total-score.js';
 
 export const handlingTotalScore = (value) => {
-  totalScore += Math.round(10 * (coordinatesOfBubblesForRemovingX.length * coordinatesOfBubblesForRemovingX.length));
+  let temporaryScore = gettingTotalScore() + Math.round(10 * (coordinatesOfBubblesForRemovingX.length * coordinatesOfBubblesForRemovingX.length));
 
   if (value === 0) { //якщо handlingTotalScore визвана із 0 обнуляєм totalScore
-    totalScore = 0;
+    temporaryScore = 0;
   } else if (value && (value > 0)) { //якщо handlingTotalScore визвана із не нульовим значенням оновлюємо totalScore
-    totalScore = value;
+    temporaryScore = value;
   };
-  saveBestResult(totalScore);
-  drawScore(totalScore);
+  savingTotalScore(temporaryScore);
+  saveBestResult(temporaryScore);
+  drawScore(temporaryScore);
 };
 
-export const savingRecord = (totalScore) => {
-  localStorage.setItem('record', totalScore);
+export const savingRecord = (temporaryScore) => {
+  localStorage.setItem('record', temporaryScore);
 };

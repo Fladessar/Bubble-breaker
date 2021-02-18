@@ -1,11 +1,11 @@
-import { createNewBubbles, undo } from '../model/data-array-handling.js';
+import { createNewBubbles, undo } from '../controller/data-array-handling.js';
 import { calculationBubblesToRemove } from '../controller/collect-data-for-bubbles-removing.js';
 import { numberRows, numberColumns } from '../model/user-sizes-of-game-field.js';
-import { handlingTotalScore } from '../model/total-score-handling.js';
+import { handlingTotalScore } from '../controller/total-score-handling.js';
 import { setUndoButtonEnabled } from './change-color-of-undo-button.js';
-import { getBestResult } from '../controller/best-result-handling.js';
+import { getBestResult } from '../model/total-score.js';
 import { drawBestResult } from './draw-best-result.js';
-
+import { savingTotalScore } from '../model/total-score.js';
 
 export function listenIfMouseClicked () {
 

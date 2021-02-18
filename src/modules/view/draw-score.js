@@ -1,3 +1,1 @@
-export const drawScore = (currentScore) => {
-  document.getElementById('score').innerHTML = currentScore;
-};
+export const drawScore = value => document.getElementById('score').innerHTML = value;
