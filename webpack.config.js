@@ -58,7 +58,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'BB',
-    }),
+      favicon: './src/shortcut_icon.png'
+    })
   ]
 
 }
